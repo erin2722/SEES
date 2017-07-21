@@ -1,0 +1,82 @@
+<!--
+tmmrw ask about adding cold and heat data
+idea:
+add summer 2017 data, winter 2017 data
+add div on side that lists counties with weather wanrings and highly vulnerable populations
+add tool that makes my app original (consider who its for and what they would need)
+  -maybe show nearby shelters when state in side bar is clicked
+collapseable menus
+maybe dont just show maps, add tools or info in other links
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SEES Project</title>
+  <link rel="icon" type="image/png" href="icon.png"/>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <!-- Load Leaflet's .js and .css from CDN-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="SEES.css"/>
+  <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+  <!-- Load Esri Leaflet from CDN.  it has no .css stylesheet of its own, only .js -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
+  <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="HomelessData.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+  <!--this code creates collapsable menus- it is really ugly rn but i can use it later
+  <button class="accordion">Basemap Selection</button>
+    <div class="panel">
+      <div id="basemaps-wrapper" class="leaflet-bar">
+        <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+          <option value="Topographic">Topographic</option>
+          <option value="Streets">Streets</option>
+          <option value="Gray">Gray</option>
+          <option value="Imagery">Imagery</option>
+        </select>
+      </div>
+    </div>-->
+  <!--<button id="test" onclick="testQueryColor()">test</button>-->
+  <div id="basemaps-wrapper" class="leaflet-bar">
+    <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+        <option value="Topographic">Topographic</option>
+        <option value="Streets">Streets</option>
+        <option value="Gray">Gray</option>
+        <option value="Imagery">Imagery</option>
+    </select>
+  </div>
+  <div id="toggle-wrapper">
+    <label class="switch">
+      <input id="currentCheck" type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    Current Watches and Warnings<br>
+    <label class="switch">
+      <input id="heatCheck" type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    Extreme Heat Alerts 2017<br>
+    <label class="switch">
+      <input id="coldCheck" type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    Extreme Cold Alerts 2017<br>
+    <label class="switch">
+      <input id="homelessCheck" type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    Poor Counties
+  </div>
+  <div id="legend">
+    <img src="color-red.jpg" width="20px" height="20px"></img>   Excesive Heat Warning<br>
+    <img src="yellow.jpg" width="20px" height="20px"></img>   Excesive Heat Watch<br>
+    <img src="box-orange.jpg" width="20px" height="20px"></img>   Heat Advisory<br>
+    <img src="blue.png" width="20px" height="20px"></img>   Extreme Cold Warning<br>
+    <img src="teal.png" width="20px" height="20px"></img>   Extreme Cold Watch
+  </div>
+
+  <script src="SEES.js"></script>
+</body>
+</html>
