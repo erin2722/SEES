@@ -1,23 +1,4 @@
 var map = L.map('map', {center: [39, -98], zoom: 5, minZoom: 3});
-var watchesWarnings = L.esri.featureLayer({
-  url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1',
-  simplifyFactor: 0.6,
-  style:function(feature) {
-            switch (feature.properties.prod_type) {
-                case "Heat Advisory": return {color: "orange",fillOpacity:0.45,weight: 0.2};
-                case "Excessive Heat Warning": return {color: "yellow",fillOpacity:0.45,weight: 0.2};
-                case "Excessive Heat Watch": return {color: "red",fillOpacity:0.45,weight: 0.2};
-                default:
-                    return {color: 'grey'};
-                    break;
-            }
-        }
-});
-var vulnerable = L.esri.featureLayer({
-  url: 'http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2',
-  simplifyFactor:0.6,
-  style: {color:"blue", fillOpacity:.5}
-});
 //swutches basemap
 var layer = L.esri.basemapLayer('Topographic').addTo(map);
 var layerLabels;
