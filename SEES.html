@@ -5,15 +5,13 @@ add summer 2017 data, winter 2017 data
 add div on side that lists counties with weather wanrings and highly vulnerable populations
 add tool that makes my app original (consider who its for and what they would need)
   -maybe show nearby shelters when state in side bar is clicked
-collapseable menus
-maybe dont just show maps, add tools or info in other links
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>SEES Project</title>
-  <link rel="icon" type="image/png" href="icon.png"/>
+  <link rel="icon" type="image/png" href="images/icon.png"/>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <!-- Load Leaflet's .js and .css from CDN-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
@@ -22,24 +20,11 @@ maybe dont just show maps, add tools or info in other links
   <!-- Load Esri Leaflet from CDN.  it has no .css stylesheet of its own, only .js -->
   <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
   <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-  <script src="HomelessData.js"></script>
 </head>
 <body>
   <div id="map"></div>
-  <!--this code creates collapsable menus- it is really ugly rn but i can use it later
-  <button class="accordion">Basemap Selection</button>
-    <div class="panel">
-      <div id="basemaps-wrapper" class="leaflet-bar">
-        <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
-          <option value="Topographic">Topographic</option>
-          <option value="Streets">Streets</option>
-          <option value="Gray">Gray</option>
-          <option value="Imagery">Imagery</option>
-        </select>
-      </div>
-    </div>-->
-  <!--<button id="test" onclick="testQueryColor()">test</button>-->
-  <div id="basemaps-wrapper" class="leaflet-bar">
+  <a href="About.html" target="popup" id= "about" onclick="window.open('About.html','name','width=400,height=300')">About</a>
+  <div class="wrapper" id="basemaps-wrapper" class="leaflet-bar">
     <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
         <option value="Topographic">Topographic</option>
         <option value="Streets">Streets</option>
@@ -47,7 +32,7 @@ maybe dont just show maps, add tools or info in other links
         <option value="Imagery">Imagery</option>
     </select>
   </div>
-  <div id="toggle-wrapper">
+  <div class="wrapper" id="toggle-wrapper">
     <label class="switch">
       <input id="currentCheck" type="checkbox">
       <span class="slider round"></span>
@@ -69,14 +54,79 @@ maybe dont just show maps, add tools or info in other links
     </label>
     Poor Counties
   </div>
-  <div id="legend">
-    <img src="color-red.jpg" width="20px" height="20px"></img>   Excesive Heat Warning<br>
-    <img src="yellow.jpg" width="20px" height="20px"></img>   Excesive Heat Watch<br>
-    <img src="box-orange.jpg" width="20px" height="20px"></img>   Heat Advisory<br>
-    <img src="blue.png" width="20px" height="20px"></img>   Extreme Cold Warning<br>
-    <img src="teal.png" width="20px" height="20px"></img>   Extreme Cold Watch
+  <div class="wrapper" id="legend">
+    <img src="images/color-red.jpg" width="20px" height="20px"></img>   Excesive Heat Warning<br>
+    <img src="images/yellow.jpg" width="20px" height="20px"></img>   Excesive Heat Watch<br>
+    <img src="images/box-orange.jpg" width="20px" height="20px"></img>   Heat Advisory<br>
+    <img src="images/blue.png" width="20px" height="20px"></img>   Extreme Cold Warning<br>
+    <img src="images/teal.png" width="20px" height="20px"></img>   Extreme Cold Watch<br>
+    <img src="images/purple.png" width="20px" height="20px"></img>   Poor Communities
   </div>
-
-  <script src="SEES.js"></script>
-</body>
+  <!--<div class="wrapper" id="test">
+      this div will list let users select a state and then show the poor counties with weather Advisories,
+      and then display points of nearby homeless shelters on the map
+  </div>-->
+  <!--this code creates collapsable menus- it is really ugly rn but i can use it later-->
+  <button class="accordion" id="collapsable">Poor Counties with Warnings</button>
+    <div class="panel" id="panel">
+    <div class="wrapper" id="drop">
+      <select name="state" id="state" onchange="state()">
+        <option value="AL">AL</option>
+        <option value="AK">AK</option>
+        <option value="AZ">AZ</option>
+        <option value="AR">AR</option>
+        <option value="CA">CA</option>
+        <option value="CO">CO</option>
+        <option value="CT">CT</option>
+        <option value="DE">DE</option>
+        <option value="DC">DC</option>
+        <option value="FL">FL</option>
+        <option value="GA">GA</option>
+        <option value="HI">HI</option>
+        <option value="ID">ID</option>
+        <option value="IL">IL</option>
+        <option value="IN">IN</option>
+        <option value="IA">IA</option>
+        <option value="KS">KS</option>
+        <option value="KY">KY</option>
+        <option value="LA">LA</option>
+        <option value="ME">ME</option>
+        <option value="MD">MD</option>
+        <option value="MA">MA</option>
+        <option value="MI">MI</option>
+        <option value="MN">MN</option>
+        <option value="MS">MS</option>
+        <option value="MO">MO</option>
+        <option value="MT">MT</option>
+        <option value="NE">NE</option>
+        <option value="NV">NV</option>
+        <option value="NH">NH</option>
+        <option value="NJ">NJ</option>
+        <option value="NM">NM</option>
+        <option value="NY">NY</option>
+        <option value="NC">NC</option>
+        <option value="ND">ND</option>
+        <option value="OH">OH</option>
+        <option value="OK">OK</option>
+        <option value="OR">OR</option>
+        <option value="PA">PA</option>
+        <option value="RI">RI</option>
+        <option value="SC">SC</option>
+        <option value="SD">SD</option>
+        <option value="TN">TN</option>
+        <option value="TX">TX</option>
+        <option value="UT">UT</option>
+        <option value="VT">VT</option>
+        <option value="VA">VA</option>
+        <option value="WA">WA</option>
+        <option value="WV">WV</option>
+        <option value="WI">WI</option>
+        <option value="WY">WY</option>
+      </select>
+    </div>
+    <div class= "wrapper" id="list">
+    </div>
+  </div>
+    <script src="SEES.js"></script>
+  </body>
 </html>
