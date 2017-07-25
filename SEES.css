@@ -1,6 +1,7 @@
 body {
   margin:0;
   padding:0;
+  font: 14px Verdana, sans serif;
 }
 .wrapper {
   position: absolute;
@@ -8,7 +9,7 @@ body {
   background: #f2f2f2;
   padding: 10px;
   border-style: solid;
-  border-width: 3px;
+  border-width: 2px;
   border-color: blue;
   border-radius: 10px;
 }
@@ -19,13 +20,24 @@ body {
   right:0;
   left:0;
 }
-#test {
-  position: absolute;
-  top: 120px;
-  left: 10px;
-  width:210px;
-  height:220px;
-  padding: 20px;
+#about {
+    position: absolute;
+    z-index: 400;
+    top: 10px;
+    right: 170px;
+    background: #f2f2f2;
+    padding: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: blue;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+#about1 {
+  width: 90%;
+  height: 90%;
 }
 #basemaps-wrapper {
   top: 10px;
@@ -39,17 +51,62 @@ body {
   border-radius: 5px;
 }
 #toggle-wrapper {
-  width: 210px;
-  height: 110px;
   bottom: 15px;
   right: 10px;
+  padding: 20px;
 }
 #legend {
-  width: 210px;
-  height: 160px;
   bottom: 10px;
-  left: 20px;
+  left: 10px;
+  padding: 20px;
+}
+#drop {
+  top: 10px;
+  left: 5px;
+  border: none;
+  padding: 0px;
+}
+/* this code styles collapsable menus */
+#panel {
+  position: absolute;
+  position: absolute;
+  text-align: center;
+  z-index: 400;
+  background: #f2f2f2;
   padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  border-radius: 10px;
+  width:210px;
+  height:250px;
+  padding: 20px;
+  top: 118px;
+  left: 10px;
+}
+#collapsable {
+  position: absolute;
+  text-align: center;
+  font: 14px Verdana, sans serif;
+  z-index: 400;
+  background: #f2f2f2;
+  padding: 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  border-radius: 10px;
+  height: 40px;
+  top: 80px;
+  left: 10px;
+}
+#list {
+  top:30px;
+  left: 5px;
+  height: 240px;
+  width: 225px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 0px;
 }
 .switch {
   position: relative;
@@ -107,34 +164,26 @@ input:checked + .slider:before {
 /* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
     position: absolute;
-    top: 140px;
-    left: 10px;
     z-index: 400;
     background-color: #eee;
     color: #444;
     cursor: pointer;
     padding: 18px;
-    width: 160px;
-    height: 10px;
     text-align: left;
     border: none;
     outline: none;
     transition: 0.4s;
 }
-/* \this code styles collapsable menus
-Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover)
+
 button.accordion.active, button.accordion:hover {
     background-color: #ddd;
 }
 
-Style the accordion panel. Note: hidden by default
+/* Style the accordion panel. Note: hidden by default */
 div.panel {
   position: absolute;
-  top: 174px;
-  left: 10px;
   z-index: 400;
   background: #f2f2f2;
   width: 160px;
   display: none;
 }
-*/
