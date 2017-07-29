@@ -13,6 +13,7 @@ body {
   border-color: blue;
   border-radius: 10px;
   font: 14px Verdana, sans serif;
+  box-shadow: 5px 5px 3px #a6a6a6;
 }
 #map {
   position: absolute;
@@ -35,6 +36,7 @@ body {
     text-align: center;
     text-decoration: none;
     color: black;
+    box-shadow: 5px 5px 3px #a6a6a6;
 }
 #about:hover{
   background-color: #ccccff;
@@ -90,6 +92,7 @@ body {
 #drop {
   top: 10px;
   left: 12px;
+  box-shadow: none;
 }
 /* this code styles collapsable menus */
 #panel {
@@ -104,10 +107,11 @@ body {
   border-color: blue;
   border-radius: 10px;
   width:210px;
-  height:300px;
+  height:290px;
   padding: 20px;
   top: 168px;
   left: 10px;
+  box-shadow: 5px 5px 3px #a6a6a6;
 }
 #collapsable {
   position: absolute;
@@ -124,8 +128,27 @@ body {
   width: 250px;
   top: 110px;
   left: 10px;
+  box-shadow: 5px 5px 3px #a6a6a6;
 }
 #collapsable:hover {
+  background-color: #ccccff;
+}
+#return {
+  position: absolute;
+  text-align: center;
+  font: 14px Verdana, sans serif;
+  z-index: 400;
+  background: #f2f2f2;
+  padding: 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  border-radius: 10px;
+  top: 10px;
+  right: 230px;
+  box-shadow: 5px 5px 3px #a6a6a6;
+}
+#return:hover {
   background-color: #ccccff;
 }
 #list {
@@ -137,6 +160,7 @@ body {
   width: 87%;
   height: 77%;
   border-radius: 10px;
+  box-shadow: none;
 }
 .switch {
   position: relative;

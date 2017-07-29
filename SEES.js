@@ -9,6 +9,11 @@ $(document).ready(function(){
         simplifyFactor:0.5,
         style: {color:"#ad42f4", fillOpacity:.5}
     });
+    var affected = L.esri.featureLayer({
+        url: 'http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2',
+        simplifyFactor:0.5,
+        style: {color:"#00802b", fillOpacity:.5, weight:10}
+    });
     var watchesWarnings = L.esri.featureLayer({
         url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1',
         simplifyFactor: 0.5,
@@ -43,27 +48,31 @@ $(document).ready(function(){
             }
         }
     });
-
     var currentData = watchesWarnings.setWhere("prod_type='Excessive Heat Warning' OR prod_type='Excessive Heat Watch' OR prod_type='Heat Advisory'");
     var unemployment = vulnerable.setWhere("UNEMPRT_CY>16");
     var clicked= false;
     var clicked1= false;
     var clicked2 = false;
+    var clicked3 = false;
     var layer = L.esri.basemapLayer('Topographic').addTo(map);
     var layerLabels;
     var poorCounties=[];
-    $("#loading").hide();
+    var points=[];
+    var shelters;
     //The following three I added, although polyFinalQuery is a place holder layer if you want to show the selected warnings
     var polyFinalQuery;
     var polyFinalCounties;
     //The following is what I use to aggregate the parameter conditions so you only call the query once
     var buildQueryString = "";
-
+    $("#loading").hide();
     $('#welcome').on('click', function(){
           $("#start").hide();
     });
     $('#about').on('click', function(){
           $("#start").show();
+    });
+    $('#return').on('click', function(){
+        map.flyTo([40, -100], 5);
     });
     function setBasemap(basemap) {
         if (layer) {
@@ -138,15 +147,15 @@ $(document).ready(function(){
         var query1 = L.esri.query({
             url: "https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1"
         });                    //prod_type='Excessive Heat Warning' OR prod_type='Excessive Heat Watch' OR prod_type='Heat Advisory' OR prod_type='Extreme Cold Warning' OR prod_type='Extreme Cold Watch'
-        var query= query1.where("prod_type='Excessive Heat Warning' OR prod_type='Excessive Heat Watch' OR prod_type='Heat Advisory' OR prod_type='Extreme Cold Warning' OR prod_type='Extreme Cold Watch'");
+        var query= query1.where("prod_type='Excessive Heat Warning' OR prod_type='Excessive Heat Watch' OR prod_type='Heat Advisory'");
+        LAcounties = affected.setWhere("UNEMPRT_CY>16");
         query.intersects(geomIn);
         //The following would tell you if any records were returned
         query.count(function(error, count, response){
             if(count==0) {
+                  document.getElementById("list").innerHTML = "No counties in "+ document.getElementById("state").value + " with high unemployment are currently under heat warnings/watches";
+                  map.flyTo([40, -100], 5);
                 $("#loading").hide();
-                document.getElementById("list").innerHTML = "No counties in "+ document.getElementById("state").value + " with high unemployment are currently under heat or cold warnings/watches";
-                map.flyTo([40, -100], 5);
-
             }
         });
         query.run(function (error, featureCollection, response) {
@@ -174,7 +183,7 @@ $(document).ready(function(){
         query2.where(originalQueryIn);
         query2.intersects(geomIn);
         query2.run(function (error, featureCollection, response) {
-            //console.log(featureCollection);
+            console.log(featureCollection);
             polyFinalCounties = L.geoJson(featureCollection, {
               style: myStyle
             });
@@ -226,6 +235,29 @@ $(document).ready(function(){
             clicked1=true;
         }
     });
+    $("#shelterCheck").on("click", function(){
+    var queryString = "http://magic.csr.utexas.edu/SEES2017/samples/geoShelters.json";
+    $.getJSON(queryString, function (data) {
+        //console.log(data);
+        for(var i =0; i<data.features.length; i++) {
+            points.push(L.marker(L.latLng(data.features[i].properties.Latitude, data.features[i].properties.Longitude)).bindPopup(data.features[i].properties.name));
+        }
+        if(clicked3) {
+            for(var j=0;j<points.length;j++){
+                map.removeLayer(points[j]);
+            }
+            map.flyTo([40, -100], 5);
+            clicked3=false;
+            points = [];
+        } else if(!clicked3) {
+            for(var k=0;k<points.length;k++){
+                map.addLayer(points[k]);
+            }
+            map.flyTo([39.3, -76.655], 13);
+            clicked3=true;
+        }
+    });
+});
 //pop ups describing warnings
     watchesWarnings.bindPopup(function(evt) {
         return L.Util.template('<h3>{prod_type}</h3><hr /><p>This is a {prod_type}.', evt.feature.properties);
@@ -284,41 +316,6 @@ $(document).ready(function(){
                 }
             }
             document.getElementById("list").innerHTML = " ";
+            map.removeLayer(affected);
         });
-    function shelterMarkers() {
-    var queryString = "http://magic.csr.utexas.edu/SEES2017/samples/geoShelters.json";
-    $.getJSON(queryString, function (data) {
-        console.log(data);
-        $.each(data, function (k, v) {
-            //console.log("key is "+ k + " value is " + v);
-            if (k == "features") {
-                //console.log("yep" + v[0].geometry.x + " " + v[0].geometry.y + " ");
-                $.each(v, function (key, value) {
-                    var newMarker;
-                    var point = new L.Point(value.geometry.x,value.geometry.y);
-                    var convertedPoint = testPointWebMercator(point);
-                    newMarker = new L.Marker(convertedPoint, {
-                        color: '#000',
-                        fillColor: "#ffffff",
-                        fillOpacity: 0.45,
-                        weight: 0.7
-                    }).bindPopup("<p style='background-color: #cccccc'><span style='font-weight:bold'>Location </span>" + value.attributes._Locations+
-                        "<br/><span style='font-weight:bold'>Lat/Lng: </span>" + parseFloat(convertedPoint.lat.toFixed(6))+ ", " + parseFloat(convertedPoint.lng.toFixed(6)) +
-                        "<br/><span style='font-weight:bold'>Number of People </span>"+ value.attributes.No_of_persons + " </p>");
-                    map.addLayer(newMarker);
-
-                })
-
-
-            }
-        });
-
-    });
-}
-function testPointWebMercator(pointIn){
-    //var wmPoint = new L.Point(1464332.826299999,8919695.334199999);
-    //console.log(L.Projection.SphericalMercator.unproject(pointIn));
-    return L.Projection.SphericalMercator.unproject(pointIn);
-}
-shelterMarkers();
 });

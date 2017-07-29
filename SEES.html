@@ -25,8 +25,9 @@ add tool that makes my app original (consider who its for and what they would ne
   <div id="map"></div>
   <div id= "about"><img src="images/help.png" width="20px" height="20px"></div>
   <img src="images/loading.gif" id="loading" width="200px" height="200px">
+  <button class="wrapper" id="return">Home</button>
   <div class="wrapper" id="start">
-    <p>Welcome to S.C.H (Susceptible Communities and Heat Watch)! This application overlays extreme heat watches, warnings, and advisorys with the highly unemployed
+    <p>Welcome to Heat Waves and Vulnerable Communities! This application overlays extreme heat watches, warnings, and advisorys with the highly unemployed
     counties in the United States in order to identify vulnerable areas. This map considers a county with an unemployment rate over 16%
     to be vulnerable. After mapping the data, you can search for the current affected vulnerable counties by state. Use the toggle switches
     to turn the layers on and off, and click the bar on the left to open the search bar. The shelters demo displays all shelters in Baltimore,
@@ -58,7 +59,7 @@ add tool that makes my app original (consider who its for and what they would ne
       <input id="homelessCheck" type="checkbox">
       <span class="slider round"></span>
     </label>
-    Poor Counties<br>
+    Highly Unemployed Counties<br>
     <label class="switch">
       <input id="shelterCheck" type="checkbox">
       <span class="slider round"></span>
@@ -66,8 +67,8 @@ add tool that makes my app original (consider who its for and what they would ne
     Shelters Demo
   </div>
   <div class="wrapper" id="legend">
-    <img src="images/color-red.jpg" width="20px" height="20px">   Excesive Heat Warning<br>
-    <img src="images/yellow.jpg" width="20px" height="20px">   Excesive Heat Watch<br>
+    <img src="images/color-red.jpg" width="20px" height="20px">   Excessive Heat Warning<br>
+    <img src="images/yellow.jpg" width="20px" height="20px">   Excessive Heat Watch<br>
     <img src="images/box-orange.jpg" width="20px" height="20px">   Heat Advisory<br>
     <img src="images/purple.png" width="20px" height="20px">  Highly Unemployed Communities<br>
     <img src="images/green.png" width="20px" height="20px">   Unemployed Communities with Warnings
@@ -137,6 +138,5 @@ add tool that makes my app original (consider who its for and what they would ne
   </div>
     <script src="SEES.js"></script>
     <script src="heatData.js"></script>
-    <script src="Homeless_Shelters.js"></script>
   </body>
 </html>
