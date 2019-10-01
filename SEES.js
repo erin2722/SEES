@@ -49,7 +49,7 @@ $(document).ready(function(){
         }
     });
     var currentData = watchesWarnings.setWhere("prod_type='Excessive Heat Warning' OR prod_type='Excessive Heat Watch' OR prod_type='Heat Advisory'");
-    var unemployment = vulnerable.setWhere("UNEMPRT_CY>16");
+    var unemployment = vulnerable.setWhere("UNEMPRT_CY>12");
     var clicked= false;
     var clicked1= false;
     var clicked2 = false;
@@ -103,7 +103,7 @@ $(document).ready(function(){
         var query = L.esri.query({
             url:"http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2"
         });
-        query.where("ST_ABBREV='"+st+"' AND UNEMPRT_CY > 16");
+        query.where("ST_ABBREV='"+st+"' AND UNEMPRT_CY > 12");
         query.run(function(error, featureCollection, response){
           console.log(featureCollection.features);
           if(featureCollection.features.length==0) {
@@ -129,7 +129,7 @@ $(document).ready(function(){
         for(var i=0;i<nameAry.length;i++){
             //console.log(nameAry.length + " is the Array Length here is the iterator " + i );
             if(i==(nameAry.length-1)){
-                buildQueryString = buildQueryString + "NAME= '"+nameAry[i]+"' AND UNEMPRT_CY > 16 AND ST_ABBREV = '"+stateIncoming+"'";
+                buildQueryString = buildQueryString + "NAME= '"+nameAry[i]+"' AND UNEMPRT_CY > 12 AND ST_ABBREV = '"+stateIncoming+"'";
                 console.log(buildQueryString);
                 query.where(buildQueryString);
                 query.run(function(error, featureCollection, response){
@@ -138,7 +138,7 @@ $(document).ready(function(){
                 });
             }
             else {
-                buildQueryString = buildQueryString + "NAME= '"+nameAry[i]+"' AND UNEMPRT_CY > 16 AND ST_ABBREV = '"+stateIncoming+"' OR ";
+                buildQueryString = buildQueryString + "NAME= '"+nameAry[i]+"' AND UNEMPRT_CY > 12 AND ST_ABBREV = '"+stateIncoming+"' OR ";
             }
         }
 
