@@ -5,12 +5,12 @@ $(document).ready(function(){
     var map = L.map('map', {center: [40, -100], zoom: 5, minZoom: 3});
 //variable names
     var vulnerable = L.esri.featureLayer({
-        url: 'http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2',
+        url: 'https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2',
         simplifyFactor:0.5,
         style: {color:"#ad42f4", fillOpacity:.5}
     });
     var affected = L.esri.featureLayer({
-        url: 'http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2',
+        url: 'https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2',
         simplifyFactor:0.5,
         style: {color:"#00802b", fillOpacity:.5, weight:10}
     });
@@ -101,7 +101,7 @@ $(document).ready(function(){
     }
     function query1(st) {
         var query = L.esri.query({
-            url:"http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2"
+            url:"https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2"
         });
         query.where("ST_ABBREV='"+st+"' AND UNEMPRT_CY > 12");
         query.run(function(error, featureCollection, response){
@@ -123,7 +123,7 @@ $(document).ready(function(){
     }
     function testQueryAry(nameAry, stateIncoming){
         var query = L.esri.query({
-            url:"http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2"
+            url:"https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Unemployment_Rate/MapServer/2"
         });
         console.log(nameAry.length);
         for(var i=0;i<nameAry.length;i++){
@@ -236,7 +236,7 @@ $(document).ready(function(){
         }
     });
     $("#shelterCheck").on("click", function(){
-    var queryString = "http://magic.csr.utexas.edu/SEES2017/samples/geoShelters.json";
+    var queryString = "https://magic.csr.utexas.edu/SEES2017/samples/geoShelters.json";
     $.getJSON(queryString, function (data) {
         //console.log(data);
         for(var i =0; i<data.features.length; i++) {
